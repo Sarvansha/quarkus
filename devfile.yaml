@@ -1,0 +1,112 @@
+schemaVersion: 2.1.0
+metadata:
+  generateName: quarkus-api-example-demo
+attributes:
+  controller.devfile.io/storage-type: ephemeral
+components:
+  - name: tools
+    container:
+      image: quay.io/devfile/universal-developer-image:ubi8-latest
+      env:
+        - name: QUARKUS_HTTP_HOST
+          value: 0.0.0.0
+      endpoints:
+        - exposure: none
+          name: debug
+          protocol: tcp
+          targetPort: 5005
+        - exposure: public
+          name: list-all-food
+          protocol: http
+          targetPort: 8080
+          path: /food
+      memoryLimit: 6G
+      mountSources: true
+
+  - name: postgresql
+    container:
+      image: 'quay.io/centos7/postgresql-13-centos7@sha256:994f5c622e2913bda1c4a7fa3b0c7e7f75e7caa3ac66ff1ed70ccfe65c40dd75'
+      env:
+        - name: POSTGRESQL_USER
+          value: user
+        - name: POSTGRESQL_PASSWORD
+          value: password
+        - name: POSTGRESQL_DATABASE
+          value: food_db
+        - name: PGDATA
+          value: /tmp/pgdata
+
+  - name: ubi-minimal
+    container:
+      image: registry.access.redhat.com/ubi8/ubi-minimal
+      command: ['tail']
+      args: ['-f', '/dev/null']
+      memoryLimit: 64M
+      mountSources: true
+commands:
+  - id: package
+    exec:
+      label: "Package"
+      component: tools
+      workingDir: ${PROJECT_SOURCE}
+      commandLine: "./mvnw clean package -DskipTests=true -Dquarkus.profile=staging"
+      group:
+        kind: build
+        isDefault: true
+  - id: runtests
+    exec:
+      label: "Run tests"
+      component: tools
+      workingDir: ${PROJECT_SOURCE}
+      commandLine: "./mvnw test"
+      group:
+        kind: test
+  - id: packagenative
+    exec:
+      label: "Package Native"
+      component: tools
+      workingDir: ${PROJECT_SOURCE}
+      commandLine: "./mvnw package -Dnative -Dmaven.test.skip -Dquarkus.native.native-image-xmx=3G  -Dquarkus.profile=staging"
+      group:
+        kind: build
+  - id: buildimage
+    exec:
+      label: "Build Image"
+      component: tools
+      workingDir: ${PROJECT_SOURCE}
+      commandLine: "podman build -f src/main/docker/Dockerfile.jvm -t image-registry.openshift-image-registry.svc:5000/openshift/quarkus-api-example ."
+      group:
+        kind: build
+  - id: loginlocalregistry
+    exec:
+      label: "Login to local OpenShift registry"
+      component: tools
+      workingDir: ${PROJECT_SOURCE}
+      commandLine: "podman login --tls-verify=false -u kubeadmin -p $(oc whoami -t) image-registry.openshift-image-registry.svc:5000"
+      group:
+        kind: run
+  - id: pushimage
+    exec:
+      label: "Push Image"
+      component: tools
+      workingDir: ${PROJECT_SOURCE}
+      commandLine: "podman push --tls-verify=false image-registry.openshift-image-registry.svc:5000/openshift/quarkus-api-example"
+      group:
+        kind: build
+  - id: startdev
+    exec:
+      label: "Start Development mode (Hot reload + debug)"
+      component: tools
+      workingDir: ${PROJECT_SOURCE}
+      commandLine: "./mvnw compile quarkus:dev"
+      group:
+        kind: run
+        isDefault: true
+  - id: startnative
+    exec:
+      label: "Start Native"
+      component: ubi-minimal
+      workingDir: ${PROJECT_SOURCE}/target
+      commandLine: "./quarkus-api-example-1.0.0-SNAPSHOT-runner"
+      group:
+        kind: run
