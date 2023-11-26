@@ -1,0 +1,89 @@
+[{
+  "apiVersion" : "v1",
+  "kind" : "Service",
+  "metadata" : {
+    "annotations" : {
+      "app.quarkus.io/commit-id" : "8150aae78de91b72a1e38dc83b78d8221d044778",
+      "app.quarkus.io/build-timestamp" : "2023-11-26 - 15:44:35 +0000"
+    },
+    "labels" : {
+      "app.kubernetes.io/name" : "vehicle-demo",
+      "app.kubernetes.io/version" : "1.0.0-SNAPSHOT",
+      "app.kubernetes.io/managed-by" : "quarkus"
+    },
+    "name" : "vehicle-demo"
+  },
+  "spec" : {
+    "ports" : [ {
+      "name" : "http",
+      "port" : 80,
+      "protocol" : "TCP",
+      "targetPort" : 8080
+    } ],
+    "selector" : {
+      "app.kubernetes.io/name" : "vehicle-demo",
+      "app.kubernetes.io/version" : "1.0.0-SNAPSHOT"
+    },
+    "type" : "ClusterIP"
+  }
+},{
+  "apiVersion" : "apps/v1",
+  "kind" : "Deployment",
+  "metadata" : {
+    "annotations" : {
+      "app.quarkus.io/commit-id" : "8150aae78de91b72a1e38dc83b78d8221d044778",
+      "app.quarkus.io/build-timestamp" : "2023-11-26 - 15:44:35 +0000"
+    },
+    "labels" : {
+      "app.kubernetes.io/managed-by" : "quarkus",
+      "app.kubernetes.io/version" : "1.0.0-SNAPSHOT",
+      "app.kubernetes.io/name" : "vehicle-demo"
+    },
+    "name" : "vehicle-demo"
+  },
+  "spec" : {
+    "replicas" : 1,
+    "selector" : {
+      "matchLabels" : {
+        "app.kubernetes.io/version" : "1.0.0-SNAPSHOT",
+        "app.kubernetes.io/name" : "vehicle-demo"
+      }
+    },
+    "template" : {
+      "metadata" : {
+        "annotations" : {
+          "app.quarkus.io/commit-id" : "8150aae78de91b72a1e38dc83b78d8221d044778",
+          "app.quarkus.io/build-timestamp" : "2023-11-26 - 15:44:35 +0000"
+        },
+        "labels" : {
+          "app.kubernetes.io/managed-by" : "quarkus",
+          "app.kubernetes.io/version" : "1.0.0-SNAPSHOT",
+          "app.kubernetes.io/name" : "vehicle-demo"
+        }
+      },
+      "spec" : {
+        "containers" : [ {
+          "env" : [ {
+            "name" : "KUBERNETES_NAMESPACE",
+            "valueFrom" : {
+              "fieldRef" : {
+                "fieldPath" : "metadata.namespace"
+              }
+            }
+          }, {
+            "name" : "JAVA_APP_JAR",
+            "value" : "/deployments/quarkus-run.jar"
+          } ],
+          "image" : "user/vehicle-demo:1.0.0-SNAPSHOT",
+          "imagePullPolicy" : "Always",
+          "name" : "vehicle-demo",
+          "ports" : [ {
+            "containerPort" : 8080,
+            "name" : "http",
+            "protocol" : "TCP"
+          } ]
+        } ]
+      }
+    }
+  }
+}]

@@ -1,0 +1,178 @@
+[{
+  "apiVersion" : "v1",
+  "kind" : "Service",
+  "metadata" : {
+    "annotations" : {
+      "app.openshift.io/vcs-url" : "<<unknown>>",
+      "app.quarkus.io/commit-id" : "8150aae78de91b72a1e38dc83b78d8221d044778",
+      "app.quarkus.io/build-timestamp" : "2023-11-26 - 15:44:35 +0000"
+    },
+    "labels" : {
+      "app.kubernetes.io/name" : "vehicle-demo",
+      "app.kubernetes.io/version" : "1.0.0-SNAPSHOT",
+      "app.kubernetes.io/managed-by" : "quarkus",
+      "app.openshift.io/runtime" : "quarkus"
+    },
+    "name" : "vehicle-demo"
+  },
+  "spec" : {
+    "ports" : [ {
+      "name" : "http",
+      "port" : 80,
+      "protocol" : "TCP",
+      "targetPort" : 8080
+    } ],
+    "selector" : {
+      "app.kubernetes.io/name" : "vehicle-demo",
+      "app.kubernetes.io/version" : "1.0.0-SNAPSHOT"
+    },
+    "type" : "ClusterIP"
+  }
+},{
+  "apiVersion" : "image.openshift.io/v1",
+  "kind" : "ImageStream",
+  "metadata" : {
+    "labels" : {
+      "app.kubernetes.io/name" : "vehicle-demo",
+      "app.kubernetes.io/version" : "1.0.0-SNAPSHOT"
+    },
+    "name" : "openjdk-11"
+  },
+  "spec" : {
+    "dockerImageRepository" : "registry.access.redhat.com/ubi8/openjdk-11",
+    "lookupPolicy" : {
+      "local" : true
+    }
+  }
+},{
+  "apiVersion" : "image.openshift.io/v1",
+  "kind" : "ImageStream",
+  "metadata" : {
+    "annotations" : {
+      "app.openshift.io/vcs-url" : "<<unknown>>",
+      "app.quarkus.io/commit-id" : "8150aae78de91b72a1e38dc83b78d8221d044778",
+      "app.quarkus.io/build-timestamp" : "2023-11-26 - 15:44:35 +0000"
+    },
+    "labels" : {
+      "app.kubernetes.io/name" : "vehicle-demo",
+      "app.kubernetes.io/version" : "1.0.0-SNAPSHOT",
+      "app.kubernetes.io/managed-by" : "quarkus",
+      "app.openshift.io/runtime" : "quarkus"
+    },
+    "name" : "vehicle-demo"
+  },
+  "spec" : {
+    "lookupPolicy" : {
+      "local" : true
+    }
+  }
+},{
+  "apiVersion" : "build.openshift.io/v1",
+  "kind" : "BuildConfig",
+  "metadata" : {
+    "annotations" : {
+      "app.openshift.io/vcs-url" : "<<unknown>>",
+      "app.quarkus.io/commit-id" : "8150aae78de91b72a1e38dc83b78d8221d044778",
+      "app.quarkus.io/build-timestamp" : "2023-11-26 - 15:44:35 +0000"
+    },
+    "labels" : {
+      "app.kubernetes.io/name" : "vehicle-demo",
+      "app.kubernetes.io/version" : "1.0.0-SNAPSHOT",
+      "app.kubernetes.io/managed-by" : "quarkus",
+      "app.openshift.io/runtime" : "quarkus"
+    },
+    "name" : "vehicle-demo"
+  },
+  "spec" : {
+    "output" : {
+      "to" : {
+        "kind" : "ImageStreamTag",
+        "name" : "vehicle-demo:1.0.0-SNAPSHOT"
+      }
+    },
+    "source" : {
+      "binary" : { }
+    },
+    "strategy" : {
+      "sourceStrategy" : {
+        "from" : {
+          "kind" : "ImageStreamTag",
+          "name" : "openjdk-11:1.17"
+        }
+      }
+    }
+  }
+},{
+  "apiVersion" : "apps.openshift.io/v1",
+  "kind" : "DeploymentConfig",
+  "metadata" : {
+    "annotations" : {
+      "app.openshift.io/vcs-url" : "<<unknown>>",
+      "app.quarkus.io/commit-id" : "8150aae78de91b72a1e38dc83b78d8221d044778",
+      "app.quarkus.io/build-timestamp" : "2023-11-26 - 15:44:35 +0000"
+    },
+    "labels" : {
+      "app.kubernetes.io/name" : "vehicle-demo",
+      "app.kubernetes.io/version" : "1.0.0-SNAPSHOT",
+      "app.kubernetes.io/managed-by" : "quarkus",
+      "app.openshift.io/runtime" : "quarkus"
+    },
+    "name" : "vehicle-demo"
+  },
+  "spec" : {
+    "replicas" : 1,
+    "selector" : {
+      "app.kubernetes.io/name" : "vehicle-demo",
+      "app.kubernetes.io/version" : "1.0.0-SNAPSHOT"
+    },
+    "template" : {
+      "metadata" : {
+        "annotations" : {
+          "app.openshift.io/vcs-url" : "<<unknown>>",
+          "app.quarkus.io/commit-id" : "8150aae78de91b72a1e38dc83b78d8221d044778",
+          "app.quarkus.io/build-timestamp" : "2023-11-26 - 15:44:35 +0000"
+        },
+        "labels" : {
+          "app.kubernetes.io/managed-by" : "quarkus",
+          "app.openshift.io/runtime" : "quarkus",
+          "app.kubernetes.io/name" : "vehicle-demo",
+          "app.kubernetes.io/version" : "1.0.0-SNAPSHOT"
+        }
+      },
+      "spec" : {
+        "containers" : [ {
+          "env" : [ {
+            "name" : "KUBERNETES_NAMESPACE",
+            "valueFrom" : {
+              "fieldRef" : {
+                "fieldPath" : "metadata.namespace"
+              }
+            }
+          }, {
+            "name" : "JAVA_APP_JAR",
+            "value" : "/deployments/quarkus-run.jar"
+          } ],
+          "image" : "user/vehicle-demo:1.0.0-SNAPSHOT",
+          "imagePullPolicy" : "Always",
+          "name" : "vehicle-demo",
+          "ports" : [ {
+            "containerPort" : 8080,
+            "name" : "http",
+            "protocol" : "TCP"
+          } ]
+        } ]
+      }
+    },
+    "triggers" : [ {
+      "imageChangeParams" : {
+        "automatic" : true,
+        "containerNames" : [ "vehicle-demo" ],
+        "from" : {
+          "kind" : "ImageStreamTag",
+          "name" : "vehicle-demo:1.0.0-SNAPSHOT"
+        }
+      },
+      "type" : "ImageChange"
+    } ]
+  }
+}]
