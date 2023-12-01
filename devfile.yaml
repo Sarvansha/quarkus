@@ -1,0 +1,48 @@
+schemaVersion: 2.1.0
+metadata:
+  generateName: spring-native-sm
+attributes:
+  controller.devfile.io/storage-type: ephemeral
+components:
+  - name: tools
+    container:
+      image: quay.io/devfile/universal-developer-image:ubi8-latest
+      env:
+        - name: SPRING_HTTP_HOST
+          value: 0.0.0.0
+      memoryLimit: 6G
+      mountSources: true
+
+commands:
+  - id: buildimagenative
+    exec:
+      label: "Build Image-Native"
+      component: tools
+      workingDir: ${PROJECT_SOURCE}
+      commandLine: "podman build -f src/main/docker/Dockerfile.native -t sarvangeeks/spring-native ."
+      group:
+        kind: build
+  - id: loginlocalregistry
+    exec:
+      label: "Login to local OpenShift registry"
+      component: tools
+      workingDir: ${PROJECT_SOURCE}
+      commandLine: "podman login -u sarvangeeks -p Muthusam8@123 docker.io"
+      group:
+        kind: run
+  - id: pushnativeimage
+    exec:
+      label: "Push Native Image"
+      component: tools
+      workingDir: ${PROJECT_SOURCE}
+      commandLine: "podman push sarvangeeks/spring-native"
+      group:
+        kind: build
+  - id: oc-deploy
+    exec:
+      label: "oc-deploy"
+      component: tools
+      workingDir: ${PROJECT_SOURCE}
+      commandLine: "oc apply -f app.yaml"
+      group:
+        kind: run
