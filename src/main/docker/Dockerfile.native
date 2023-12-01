@@ -5,6 +5,7 @@ microdnf install -y maven gcc glibc-devel zlib-devel libstdc++-devel gcc-c++ && 
 microdnf clean all \
 
 WORKDIR /build
+
 COPY pom.xml /build/
 COPY src /build/src
 
