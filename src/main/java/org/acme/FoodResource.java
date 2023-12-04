@@ -20,7 +20,7 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
-@Path("/food")
+@Path("/foods")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class FoodResource {
@@ -28,12 +28,6 @@ public class FoodResource {
     @GET
     public List<Food> list() {
         return Food.listAll(Sort.by("id"));
-    }
-
-    @GET
-    @Path("/{id}")
-    public Food getById(@PathParam("id") Long id) {
-        return Food.findById(id);
     }
 
     @POST
@@ -46,15 +40,4 @@ public class FoodResource {
         return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
     }
 
-    @GET
-    @Path("search/{name}")
-    public Food getByName(@PathParam("name") String name) {
-        return Food.find("name", name).firstResult();
-    }
-
-    @GET
-    @Path("restaurant/{restaurantName}")
-    public List<Food> listByRestaurant(@PathParam("restaurantName") String restaurantName) {
-        return Food.find("restaurantName", Sort.by("name"), restaurantName).list();
-    }
 }
