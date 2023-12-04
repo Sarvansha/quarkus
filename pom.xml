@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>3.2.0</version>
-		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.example</groupId>
 	<artifactId>springnative</artifactId>
@@ -25,69 +24,12 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-devtools</artifactId>
-			<scope>runtime</scope>
-			<optional>true</optional>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-		</dependency>
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
 			<version>42.4.3</version>
 		</dependency>
-
 	</dependencies>
-
-	<build>
-		<plugins>
-			<plugin>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-maven-plugin</artifactId>
-			<configuration>
-				<image>
-					<builder>paketobuildpacks/builder:tiny</builder>
-					<env>
-						<BP_NATIVE_IMAGE>true</BP_NATIVE_IMAGE>
-					</env>
-				</image>
-			</configuration>
-			<executions>
-				<execution>
-					<id>process-aot</id>
-					<goals>
-						<goal>process-aot</goal>
-					</goals>
-				</execution>
-			</executions>
-		</plugin>
-			<plugin>
-				<groupId>org.graalvm.buildtools</groupId>
-				<artifactId>native-maven-plugin</artifactId>
-				<configuration>
-					<classesDirectory>${project.build.outputDirectory}</classesDirectory>
-					<metadataRepository>
-						<enabled>true</enabled>
-					</metadataRepository>
-					<requiredVersion>22.3</requiredVersion>
-				</configuration>
-				<executions>
-					<execution>
-						<id>add-reachability-metadata</id>
-						<goals>
-							<goal>add-reachability-metadata</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-		</plugins>
-	</build>
 
 	<profiles>
 		<profile>
@@ -95,24 +37,42 @@
 			<build>
 				<plugins>
 					<plugin>
-						<groupId>org.graalvm.buildtools</groupId>
-						<artifactId>native-maven-plugin</artifactId>
+						<groupId>org.springframework.boot</groupId>
+						<artifactId>spring-boot-maven-plugin</artifactId>
 						<configuration>
-							<!-- imageName is used to set the name of the generated binary file -->
-							<imageName>${project.artifactId}</imageName>
-							<!-- mainClass is used to specify the path to the main method class -->
-							<mainClass>com.example.springnative.SpringnativeApplication</mainClass>
-							<buildArgs>
-								--no-fallback
-							</buildArgs>
+							<image>
+								<builder>paketobuildpacks/builder:tiny</builder>
+								<env>
+									<BP_NATIVE_IMAGE>true</BP_NATIVE_IMAGE>
+									<BP_JVM_VERSION>17.*</BP_JVM_VERSION>
+								</env>
+							</image>
 						</configuration>
 						<executions>
 							<execution>
-								<id>build-native</id>
+								<id>process-aot</id>
 								<goals>
-									<goal>compile-no-fork</goal>
+									<goal>process-aot</goal>
 								</goals>
-								<phase>package</phase>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.graalvm.buildtools</groupId>
+						<artifactId>native-maven-plugin</artifactId>
+						<configuration>
+							<classesDirectory>${project.build.outputDirectory}</classesDirectory>
+							<metadataRepository>
+								<enabled>true</enabled>
+							</metadataRepository>
+							<requiredVersion>22.3</requiredVersion>
+						</configuration>
+						<executions>
+							<execution>
+								<id>add-reachability-metadata</id>
+								<goals>
+									<goal>add-reachability-metadata</goal>
+								</goals>
 							</execution>
 						</executions>
 					</plugin>
@@ -120,5 +80,4 @@
 			</build>
 		</profile>
 	</profiles>
-
 </project>
