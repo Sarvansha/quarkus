@@ -61,7 +61,7 @@ kind: Route
 apiVersion: route.openshift.io/v1
 metadata:
   name: spring-native-postgres
-  namespace: muthuvaidy-dev
+  namespace: quarkuspoc-dev
   labels:
     app.kubernetes.io/name: spring-native-postgres
     app.kubernetes.io/version: 1.0.0-SNAPSHOT
