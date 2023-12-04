@@ -19,7 +19,7 @@ commands:
       label: "Build Image-Native"
       component: tools
       workingDir: ${PROJECT_SOURCE}
-      commandLine: "mvnw clean -Pnative spring-boot:build-image -Dspring-boot.build-image.imageName=sarvangeeks/spring-native-postgres"
+      commandLine: "./mvnw clean -Pnative spring-boot:build-image -Dspring-boot.build-image.imageName=sarvangeeks/spring-native-postgres"
       group:
         kind: build
   - id: loginlocalregistry
