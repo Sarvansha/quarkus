@@ -1,0 +1,60 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: quarkus-native-postgres
+  labels:
+    app: quarkus-native-postgres
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: quarkus-native-postgres
+  template:
+    metadata:
+      labels:
+        app: quarkus-native-postgres
+    spec:
+      containers:
+        - name: quarkus-native-postgres
+          image: sarvangeeks/quarkus-native-postgres:0.0.1-SNAPSHOT
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+              name: http
+              protocol: TCP
+          env:
+            - name: quarkus.datasource.jdbc.url
+              value: "jdbc:postgresql://172.30.231.152:5432/sampledb"
+      imagePullSecrets:
+        - name: sarvandockerhub
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: quarkus-native-postgres
+  labels:
+    app: quarkus-native-postgres
+spec:
+  ports:
+    - name: http
+      port: 80
+      targetPort: 8080
+  selector:
+    app: quarkus-native-postgres
+  type: ClusterIP
+---
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: quarkus-native-postgres
+  namespace: quarkuspoc-dev
+spec:
+  path: /
+  to:
+    kind: Service
+    name: quarkus-native-postgres
+    weight: 100
+  port:
+    targetPort: http
+  wildcardPolicy: None
