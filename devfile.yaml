@@ -19,7 +19,7 @@ commands:
       label: "Build Image-Native"
       component: tools
       workingDir: ${PROJECT_SOURCE}
-      commandLine: '/mvnw clean -Pnative spring-boot:build-image -Dspring-boot.build-image.imageName=sarvangeeks/spring-native:0.0.1-SNAPSHOT'
+      commandLine: 'podman build -f src/main/docker/Dockerfile.native -t sarvangeeks/spring-native-postgres .'
       group:
         kind: build
   - id: loginlocalregistry

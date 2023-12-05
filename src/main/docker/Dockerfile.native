@@ -1,20 +1,18 @@
-FROM ghcr.io/graalvm/native-image:ol8-java17-22 AS builder
-
-RUN microdnf update -y && \
-microdnf install -y maven gcc glibc-devel zlib-devel libstdc++-devel gcc-c++ && \
-microdnf clean all \
+FROM ghcr.io/graalvm/native-image:ol8-java17-22 AS build
 
 WORKDIR /build
-
+COPY mvnw /build/
+COPY .mvn /build/mvn
 COPY pom.xml /build/
 COPY src /build/src
 
 # Build
-RUN mvn package -Pnative
+RUN chmod 777 mvnw
+RUN ./mvnw package -Pnative -DskipTests=true
 
 # The deployment Image
-FROM docker.io/oraclelinux:8-slim
+FROM docker.io/alpine
 EXPOSE 8080
 # Copy the native executable into the containers
-COPY --from=builder /build/target/springnative .
+COPY --from=build /build/target/springnative .
 ENTRYPOINT ["/springnative"]
