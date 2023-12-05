@@ -45,4 +45,12 @@ commands:
       workingDir: ${PROJECT_SOURCE}
       commandLine: "oc apply -f app.yaml"
       group:
-        kind: run 
+        kind: run
+  - id: buildanddeploy
+    composite:
+      commands:
+        - buildimagenative
+        - loginlocalregistry
+        - pushnativeimage
+        - oc-deploy
+      parallel: false
