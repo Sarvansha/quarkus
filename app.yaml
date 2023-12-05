@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: quarkus-native-postgres
-          image: sarvangeeks/quarkus-native-postgres:0.0.1-SNAPSHOT
+          image: sarvangeeks/quarkus-native-postgres
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
