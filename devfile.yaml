@@ -10,7 +10,7 @@ components:
       env:
         - name: SPRING_HTTP_HOST
           value: 0.0.0.0
-      memoryLimit: 6G
+      memoryLimit: 10G
       mountSources: true
 
 commands:
