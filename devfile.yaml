@@ -46,8 +46,7 @@ commands:
       commandLine: "oc apply -f app.yaml"
       group:
         kind: run
-  - id: buildanddeploy
-    label: Build and Run
+  - id: build-deploy
     composite:
       commands:
         - buildimagenative
