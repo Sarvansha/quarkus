@@ -8,7 +8,7 @@ COPY pom.xml /build/
 COPY src /build/src
 
 # Build
-RUN export MAVEN_OPTS="-Xmx6144m"
+RUN export MAVEN_OPTS="-Xmx20480m"
 RUN chmod 777 mvnw
 RUN ./mvnw native:compile -Pnative -DskipTests=true
 
