@@ -47,6 +47,7 @@ commands:
       group:
         kind: run
   - id: buildanddeploy
+    label: Build and Run
     composite:
       commands:
         - buildimagenative
@@ -54,3 +55,5 @@ commands:
         - pushnativeimage
         - oc-deploy
       parallel: false
+      group: 
+        kind: run
