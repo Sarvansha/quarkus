@@ -67,3 +67,13 @@ Easily start your RESTful Web Services
 Monitor your application's health using SmallRye Health
 
 [Related guide section...](https://quarkus.io/guides/smallrye-health)
+
+### Quarkus Native Metrics
+
+![QuarkusNativeStartupTime](https://github.com/Sarvansha/quarkus/assets/25998681/7a480dbe-a349-4095-94ab-8a42eb11ec3e)
+![QuarkusNativeThroughput](https://github.com/Sarvansha/quarkus/assets/25998681/f2acc746-a59e-43cb-ba55-b6288ef68093)
+![SpringNativeQuarkusNativeImageSizes](https://github.com/Sarvansha/quarkus/assets/25998681/11c8c81e-c6fb-4b61-806e-537640e13820)
+![SpringNativeVsQuarkusNativeMemory](https://github.com/Sarvansha/quarkus/assets/25998681/8d56e089-6932-46c0-98b3-a89dde6de4d4)
+![SpringNativeVsQuarkusNativeCPU](https://github.com/Sarvansha/quarkus/assets/25998681/e23b98d6-91e9-4001-b8fc-9d7fefd47dbe)
+![QuarkusNativeBuildTime](https://github.com/Sarvansha/quarkus/assets/25998681/331ed5ba-8dec-409e-888c-a63b2da7bc22)
+
