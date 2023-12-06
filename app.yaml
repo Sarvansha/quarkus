@@ -26,7 +26,7 @@ spec:
               protocol: TCP
           env:
             - name: quarkus.datasource.jdbc.url
-              value: "jdbc:postgresql://172.30.251.123:5432/sampledb"
+              value: "jdbc:postgresql://postgresql.quarkuspoc-dev.svc.cluster.local:5432/sampledb"
       imagePullSecrets:
         - name: sarvandockerhub
 ---
