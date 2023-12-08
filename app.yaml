@@ -2,22 +2,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: spring-native-postgres
+  name: spring-jvm-postgres
   labels:
-    app: spring-native-postgres
+    app: spring-jvm-postgres
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: spring-native-postgres
+      app: spring-jvm-postgres
   template:
     metadata:
       labels:
-        app: spring-native-postgres
+        app: spring-jvm-postgres
     spec:
       containers:
-        - name: spring-native-postgres
-          image: sarvangeeks/spring-native-postgres
+        - name: spring-jvm-postgres
+          image: sarvangeeks/spring-jvm-postgres
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
@@ -32,28 +32,28 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: spring-native-postgres
+  name: spring-jvm-postgres
   labels:
-    app: spring-native-postgres
+    app: spring-jvm-postgres
 spec:
   ports:
     - name: http
       port: 80
       targetPort: 8080
   selector:
-    app: spring-native-postgres
+    app: spring-jvm-postgres
   type: ClusterIP
 ---
 kind: Route
 apiVersion: route.openshift.io/v1
 metadata:
-  name: spring-native-postgres
+  name: spring-jvm-postgres
   namespace: quarkuspoc-dev
 spec:
   path: /
   to:
     kind: Service
-    name: spring-native-postgres
+    name: spring-jvm-postgres
     weight: 100
   port:
     targetPort: http

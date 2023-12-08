@@ -18,7 +18,7 @@ public class FoodController {
     @GetMapping
     @RequestMapping("/hello")
     public String sayHello() {
-        return "Hello Spring Native!!";
+        return "Hello Spring Native-change!!";
     }
 
     @GetMapping(value = "/foods")

@@ -8,13 +8,21 @@
 		<version>3.2.0</version>
 	</parent>
 	<groupId>com.example</groupId>
-	<artifactId>springnative</artifactId>
+	<artifactId>spring-jvm-postgres</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>springnative</name>
-	<description>Demo project for Spring Boot native</description>
+	<name>springJVM</name>
+	<description>Demo project for Spring Boot JVM</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -24,6 +32,7 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
+
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
@@ -31,53 +40,4 @@
 		</dependency>
 	</dependencies>
 
-	<profiles>
-		<profile>
-			<id>native</id>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.springframework.boot</groupId>
-						<artifactId>spring-boot-maven-plugin</artifactId>
-						<configuration>
-							<image>
-								<builder>paketobuildpacks/builder:tiny</builder>
-								<env>
-									<BP_NATIVE_IMAGE>true</BP_NATIVE_IMAGE>
-									<BP_JVM_VERSION>17.*</BP_JVM_VERSION>
-								</env>
-							</image>
-						</configuration>
-						<executions>
-							<execution>
-								<id>process-aot</id>
-								<goals>
-									<goal>process-aot</goal>
-								</goals>
-							</execution>
-						</executions>
-					</plugin>
-					<plugin>
-						<groupId>org.graalvm.buildtools</groupId>
-						<artifactId>native-maven-plugin</artifactId>
-						<configuration>
-							<classesDirectory>${project.build.outputDirectory}</classesDirectory>
-							<metadataRepository>
-								<enabled>true</enabled>
-							</metadataRepository>
-							<requiredVersion>22.3</requiredVersion>
-						</configuration>
-						<executions>
-							<execution>
-								<id>add-reachability-metadata</id>
-								<goals>
-									<goal>add-reachability-metadata</goal>
-								</goals>
-							</execution>
-						</executions>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-	</profiles>
 </project>
