@@ -1,6 +1,6 @@
 schemaVersion: 2.1.0
 metadata:
-  generateName: quarkus-native-postgres
+  generateName: quarkus-jvm-postgres
 attributes:
   controller.devfile.io/storage-type: ephemeral
 components:
@@ -19,7 +19,7 @@ commands:
       label: "Build Image-Native"
       component: tools
       workingDir: ${PROJECT_SOURCE}
-      commandLine: "podman build -f src/main/docker/Dockerfile.native -t sarvangeeks/quarkus-native-postgres ."
+      commandLine: "podman build -f src/main/docker/Dockerfile.jvm -t sarvangeeks/quarkus-jvm-postgres ."
       group:
         kind: build  
   - id: loginlocalregistry
@@ -35,7 +35,7 @@ commands:
       label: "Push Native Image"
       component: tools
       workingDir: ${PROJECT_SOURCE}
-      commandLine: "podman push sarvangeeks/quarkus-native-postgres"
+      commandLine: "podman push sarvangeeks/quarkus-jvm-postgres"
       group:
         kind: build
   - id: oc-deploy
@@ -45,14 +45,4 @@ commands:
       workingDir: ${PROJECT_SOURCE}
       commandLine: "oc apply -f app.yaml"
       group:
-        kind: run
-  - id: build-deploy
-    composite:
-      commands:
-        - buildimagenative
-        - loginlocalregistry
-        - pushnativeimage
-        - oc-deploy
-      parallel: false
-      group: 
         kind: run
