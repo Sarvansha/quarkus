@@ -3,22 +3,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: quarkus-native-postgres
+  name: quarkus-jvm-postgres
   labels:
-    app: quarkus-native-postgres
+    app: quarkus-jvm-postgres
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: quarkus-native-postgres
+      app: quarkus-jvm-postgres
   template:
     metadata:
       labels:
-        app: quarkus-native-postgres
+        app: quarkus-jvm-postgres
     spec:
       containers:
-        - name: quarkus-native-postgres
-          image: sarvangeeks/quarkus-native-postgres
+        - name: quarkus-jvm-postgres
+          image: sarvangeeks/quarkus-jvm-postgres
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
@@ -26,35 +26,35 @@ spec:
               protocol: TCP
           env:
             - name: quarkus.datasource.jdbc.url
-              value: "jdbc:postgresql://postgresql.quarkuspoc-dev.svc.cluster.local:5432/sampledb"
+              value: "jdbc:postgresql://postgresql.muthuvaidy-dev.svc.cluster.local:5432/sampledb"
       imagePullSecrets:
         - name: sarvandockerhub
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: quarkus-native-postgres
+  name: quarkus-jvm-postgres
   labels:
-    app: quarkus-native-postgres
+    app: quarkus-jvm-postgres
 spec:
   ports:
     - name: http
       port: 80
       targetPort: 8080
   selector:
-    app: quarkus-native-postgres
+    app: quarkus-jvm-postgres
   type: ClusterIP
 ---
 kind: Route
 apiVersion: route.openshift.io/v1
 metadata:
-  name: quarkus-native-postgres
-  namespace: quarkuspoc-dev
+  name: quarkus-jvm-postgres
+  namespace: muthuvaidy-dev
 spec:
   path: /
   to:
     kind: Service
-    name: quarkus-native-postgres
+    name: quarkus-jvm-postgres
     weight: 100
   port:
     targetPort: http
