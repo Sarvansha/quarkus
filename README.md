@@ -1,11 +1,12 @@
-# Spring Native
+# Spring Boot JVM
 
-## Spring Native metrics screenshots
+## Spring Boot JVM metrics screenshots
 
-![SpringNative_BuildTime](https://github.com/Sarvansha/quarkus/assets/25998681/f671f738-bbf9-4cb2-a976-e3bc1293a8bc)
-![SpringNativeQuarkusNativeImageSizes](https://github.com/Sarvansha/quarkus/assets/25998681/24478ddd-3aaf-4d34-8c23-f2e218caa588)
-![SpringNativeStartupTime](https://github.com/Sarvansha/quarkus/assets/25998681/638ed6e9-7dff-4fcf-bd9d-1bfb3306ac24)
-![SpringNativeThroughput](https://github.com/Sarvansha/quarkus/assets/25998681/34676a85-4d5d-4481-b740-27003e9e7afa)
-![SpringNativeVsQuarkusNativeCPU](https://github.com/Sarvansha/quarkus/assets/25998681/e5a39a5f-d883-407a-8d8c-7553d62551df)
-![SpringNativeQuarkusNativeMemory](https://github.com/Sarvansha/quarkus/assets/25998681/c80cbeef-661e-4085-abc6-7243f0f5ce65)
+![SpringJVMBuildTime](https://github.com/Sarvansha/quarkus/assets/25998681/9a970043-a1ac-4465-a34e-b7cacf259c1d)
+![SpringJVMStartupTime](https://github.com/Sarvansha/quarkus/assets/25998681/77dfdb62-4e14-4b53-b1e9-eae2e8c2227f)
+![SpringJVMThroughput](https://github.com/Sarvansha/quarkus/assets/25998681/0f8fdf64-a548-4db3-ad40-7a7c662af7a7)
+![SpringQuarkusJVMImageSize](https://github.com/Sarvansha/quarkus/assets/25998681/65759143-58bc-4d22-be47-b5b429a3fcd1)
+![SpringQuarkusJVMMemoryUsage](https://github.com/Sarvansha/quarkus/assets/25998681/7ed03e47-30f2-4c97-a8e6-0c7ccb4b3561)
+![SpringQuarkusJVMCPU](https://github.com/Sarvansha/quarkus/assets/25998681/1d270cb6-83cd-4a2b-ab91-a7f181e793a5)
+
 
