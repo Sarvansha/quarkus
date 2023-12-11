@@ -24,7 +24,7 @@ commands:
         kind: build  
   - id: loginlocalregistry
     exec:
-      label: "Login to local OpenShift registry"
+      label: "Login to docker registry"
       component: tools
       workingDir: ${PROJECT_SOURCE}
       commandLine: "podman login -u sarvangeeks -p Muthusam8@123 docker.io"
