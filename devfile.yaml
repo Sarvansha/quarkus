@@ -21,7 +21,7 @@ commands:
       workingDir: ${PROJECT_SOURCE}
       commandLine: "podman build -f src/main/docker/Dockerfile.native -t sarvangeeks/quarkus-native-postgres ."
       group:
-        kind: build  
+        kind: run  
   - id: loginlocalregistry
     exec:
       label: "Login to local OpenShift registry"
@@ -37,7 +37,7 @@ commands:
       workingDir: ${PROJECT_SOURCE}
       commandLine: "podman push sarvangeeks/quarkus-native-postgres"
       group:
-        kind: build
+        kind: run
   - id: oc-deploy
     exec:
       label: "oc-deploy"
