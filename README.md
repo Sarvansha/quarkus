@@ -9,3 +9,4 @@
 ![DevspaceLaunch](https://github.com/Sarvansha/quarkus/assets/25998681/0e209244-a901-453e-ba5d-3e20f81f12fa)
 ![DevSpaceList](https://github.com/Sarvansha/quarkus/assets/25998681/adf00509-7359-4abe-9f9e-9139e357ff0f)
 ![DevSpaceDeployment](https://github.com/Sarvansha/quarkus/assets/25998681/a1791a79-e8ac-4a42-b364-4e9e34454c04)
+![QuarkusJVMTopologyScreenshot](https://github.com/Sarvansha/quarkus/assets/25998681/02886c8d-057c-41cf-be64-272e32fce4a3)
