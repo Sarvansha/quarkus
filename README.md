@@ -6,3 +6,6 @@
 ![SpringQuarkusJVMCPU](https://github.com/Sarvansha/quarkus/assets/25998681/bb0f4a1b-bed5-4401-8304-4ca90decf0a6)
 ![SpringQuarkusJVMImageSize](https://github.com/Sarvansha/quarkus/assets/25998681/19a930db-4dfa-4611-aa52-cd3d219f7001)
 ![SpringQuarkusMemory](https://github.com/Sarvansha/quarkus/assets/25998681/3cf21106-ae73-48d4-90cd-b1f7aea4a161)
+![DevspaceLaunch](https://github.com/Sarvansha/quarkus/assets/25998681/0e209244-a901-453e-ba5d-3e20f81f12fa)
+![DevSpaceList](https://github.com/Sarvansha/quarkus/assets/25998681/adf00509-7359-4abe-9f9e-9139e357ff0f)
+![DevSpaceDeployment](https://github.com/Sarvansha/quarkus/assets/25998681/a1791a79-e8ac-4a42-b364-4e9e34454c04)
