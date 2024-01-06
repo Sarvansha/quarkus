@@ -48,6 +48,7 @@ commands:
         kind: run
   - id: buildandpush
     composite:
+      label: "composite"
       commands:
         - buildimagejvm
         - loginlocalregistry
