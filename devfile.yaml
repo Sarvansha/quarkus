@@ -14,9 +14,9 @@ components:
       mountSources: true
 
 commands:
-  - id: buildimagenative
+  - id: buildimagejvm
     exec:
-      label: "Build Image-Native"
+      label: "Build Image-Jvm"
       component: tools
       workingDir: ${PROJECT_SOURCE}
       commandLine: "podman build -f src/main/docker/Dockerfile.jvm -t sarvangeeks/quarkus-jvm-postgres ."
@@ -29,7 +29,7 @@ commands:
       workingDir: ${PROJECT_SOURCE}
       commandLine: "podman login -u sarvangeeks -p Muthusam8@123 docker.io"
       group:
-        kind: run
+        kind: build
   - id: pushnativeimage
     exec:
       label: "Push Native Image"
@@ -46,3 +46,10 @@ commands:
       commandLine: "oc apply -f app.yaml"
       group:
         kind: run
+  - id: installandpackage
+    composite:
+      commands:
+        - buildimagejvm
+        - loginlocalregistry
+        - pushnativeimage
+      parallel: false
