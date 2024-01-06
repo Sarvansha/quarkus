@@ -46,7 +46,7 @@ commands:
       commandLine: "oc apply -f app.yaml"
       group:
         kind: run
-  - id: installandpackage
+  - id: buildandpush
     composite:
       commands:
         - buildimagejvm
